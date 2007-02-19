@@ -5,7 +5,7 @@ use strict;
 use NEXT;
 use base 'Catalyst::Component';
 
-__PACKAGE__->mk_ro_accessors('context');
+__PACKAGE__->mk_ro_accessors('context'); # TODO: app instead of context initially?
 
 =head1 NAME
 
@@ -14,11 +14,11 @@ request context available in Models and Views.
 
 =head1 VERSION
 
-Version 0.01
+Version 0.02
 
 =cut
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 =head1 SYNOPSIS
 
@@ -59,6 +59,21 @@ sub ACCEPT_CONTEXT {
     my $context = shift;
     $self->{context} = $context;
     return $self->NEXT::ACCEPT_CONTEXT(@_) || $self;
+}
+
+=head2 COMPONENT
+
+Overridden to use initial application object as context before a request.
+
+=cut
+
+sub COMPONENT {
+    my $class = shift;
+    my $app   = shift;
+    my $args  = shift;
+    $args->{context} = $app;
+    
+    return $class->NEXT::COMPONENT($app, $args, @_);
 }
 
 =head1 AUTHOR

@@ -24,5 +24,10 @@ sub controller : Global {
     $c->res->body("controller");
 }
 
+sub foo : Global {
+    my ($self, $c) = @_;
+    $c->res->body($c->model('Test')->foo);
+}
+
 1;
 
