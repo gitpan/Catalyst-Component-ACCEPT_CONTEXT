@@ -4,6 +4,7 @@ package TestApp::Controller::Root;
 use strict;
 use warnings;
 use base 'Catalyst::Controller';
+use Devel::Cycle;
 
 __PACKAGE__->config(namespace => '');
 
@@ -28,6 +29,22 @@ sub foo : Global {
     my ($self, $c) = @_;
     $c->res->body($c->model('Test')->foo);
 }
+
+sub stash : Global {
+    my ($self, $c) = @_;
+    $c->model('StashMe')->test;
+    $c->res->body($c->stash->{stashme}->foo);
+}
+
+sub cycle : Global {
+    my ($self, $c) = @_;
+    $c->model('StashMe')->test;
+    my $cycle_ok = 1;
+    use Data::Dumper;
+    my $got_cycle = sub { $cycle_ok = 0 };
+    $c->res->body($cycle_ok);
+} 
+
 
 1;
 

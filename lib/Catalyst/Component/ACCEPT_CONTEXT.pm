@@ -4,6 +4,7 @@ use warnings;
 use strict;
 use NEXT;
 use base 'Catalyst::Component';
+use Scalar::Util qw(weaken);
 
 __PACKAGE__->mk_ro_accessors('context'); # TODO: app instead of context initially?
 
@@ -14,11 +15,11 @@ request context available in Models and Views.
 
 =head1 VERSION
 
-Version 0.02
+Version 0.03
 
 =cut
 
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 =head1 SYNOPSIS
 
@@ -57,8 +58,11 @@ See L<Catalyst::Component> for details.
 sub ACCEPT_CONTEXT {
     my $self    = shift;
     my $context = shift;
-    $self->{context} = $context;
-    return $self->NEXT::ACCEPT_CONTEXT(@_) || $self;
+
+    my $new = bless({ %$self, context => $context }, ref($self));
+    weaken($new->{context});
+    
+    return $new->NEXT::ACCEPT_CONTEXT($context, @_) || $new;
 }
 
 =head2 COMPONENT
@@ -72,6 +76,7 @@ sub COMPONENT {
     my $app   = shift;
     my $args  = shift;
     $args->{context} = $app;
+    weaken($args->{context}) if ref $args->{context};
     
     return $class->NEXT::COMPONENT($app, $args, @_);
 }

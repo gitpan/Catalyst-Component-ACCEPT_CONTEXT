@@ -1,4 +1,7 @@
 Revision history for Catalyst-Component-ACCEPT_CONTEXT
 
+0.03    13 Jul 2007
+        Weaken context.
+
 0.01    18 Feb 2007
         First version, released on an unsuspecting world.

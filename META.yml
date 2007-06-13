@@ -1,7 +1,7 @@
 abstract: Make the current Catalyst
 author: Jonathan Rockway, C<< <jrockway at cpan.org> >>
 build_requires: 
-  Test::More: 0
+  Devel::Cycle: 0
 distribution_type: module
 generated_by: Module::Install version 0.64
 license: perl
@@ -12,4 +12,5 @@ no_index:
     - t
 requires: 
   Catalyst: 0
-version: 0.02
+  Scalar::Util: 0
+version: 0.03

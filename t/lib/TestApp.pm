@@ -8,3 +8,4 @@ use Catalyst;
 TestApp->config(foo => 'baz');
 TestApp->setup;
 1;
+
