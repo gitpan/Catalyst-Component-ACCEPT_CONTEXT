@@ -26,3 +26,4 @@ t/lib/TestApp/Model/Test.pm
 t/lib/TestApp/View/Test.pm
 t/pod-coverage.t
 t/pod.t
+t/preserve-object.t

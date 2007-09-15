@@ -15,11 +15,11 @@ request context available in Models and Views.
 
 =head1 VERSION
 
-Version 0.03
+Version 0.04
 
 =cut
 
-our $VERSION = '0.03';
+our $VERSION = '0.04';
 
 =head1 SYNOPSIS
 
@@ -49,7 +49,12 @@ Returns the current request context.
 =head2 ACCEPT_CONTEXT
 
 Catalyst calls this method to give the current context to your model.
-You should never call it directly. 
+You should never call it directly.
+
+Note that a new instance of your component isn't created.  All we do
+here is shove C<$c> into your component.  ACCEPT_CONTEXT allows for
+other behavior that may be more useful; if you want something else to
+happen just implement it yourself.
 
 See L<Catalyst::Component> for details.
 
@@ -59,10 +64,10 @@ sub ACCEPT_CONTEXT {
     my $self    = shift;
     my $context = shift;
 
-    my $new = bless({ %$self, context => $context }, ref($self));
-    weaken($new->{context});
+    $self->{context} = $context;
+    weaken($self->{context});
     
-    return $new->NEXT::ACCEPT_CONTEXT($context, @_) || $new;
+    return $self->NEXT::ACCEPT_CONTEXT($context, @_) || $self;
 }
 
 =head2 COMPONENT
@@ -127,7 +132,7 @@ L<http://search.cpan.org/dist/Catalyst-Component-ACCEPT_CONTEXT>
 
 =head1 COPYRIGHT & LICENSE
 
-Copyright 2007 Jonathan Rockway, all rights reserved.
+Copyright 2007 Jonathan Rockway.
 
 This program is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.

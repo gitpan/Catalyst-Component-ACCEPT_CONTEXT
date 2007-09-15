@@ -40,10 +40,19 @@ sub cycle : Global {
     my ($self, $c) = @_;
     $c->model('StashMe')->test;
     my $cycle_ok = 1;
-    use Data::Dumper;
     my $got_cycle = sub { $cycle_ok = 0 };
+    find_cycle($c, $got_cycle);
     $c->res->body($cycle_ok);
 } 
+
+sub weak_cycle :Global {
+    my ($self, $c) = @_;
+    $c->model('StashMe')->test;
+    my $cycle_ok = 0;
+    my $got_cycle = sub { $cycle_ok = 1 };
+    find_weakened_cycle($c, $got_cycle);
+    $c->res->body($cycle_ok);
+}
 
 
 1;

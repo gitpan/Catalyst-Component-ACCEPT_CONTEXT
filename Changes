@@ -1,5 +1,8 @@
 Revision history for Catalyst-Component-ACCEPT_CONTEXT
 
+0.04	15 Sep 2007
+	Be less invasive; return the same $self each time.
+
 0.03    13 Jul 2007
         Weaken context.
 
