@@ -3,7 +3,7 @@
 package TestApp::Controller::Root;
 use strict;
 use warnings;
-use base 'Catalyst::Controller';
+use base qw/Catalyst::Component::ACCEPT_CONTEXT Catalyst::Controller/;
 use Devel::Cycle;
 
 __PACKAGE__->config(namespace => '');
@@ -53,7 +53,6 @@ sub weak_cycle :Global {
     find_weakened_cycle($c, $got_cycle);
     $c->res->body($cycle_ok);
 }
-
 
 1;
 

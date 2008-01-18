@@ -1,5 +1,8 @@
 Revision history for Catalyst-Component-ACCEPT_CONTEXT
 
+0.05    18 Jan 2008
+        Don't inherit from Catalyst::Component; this breaks NEXT (!)        
+
 0.04	15 Sep 2007
 	Be less invasive; return the same $self each time.
 
