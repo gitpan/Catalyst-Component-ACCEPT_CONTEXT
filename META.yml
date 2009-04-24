@@ -1,21 +1,26 @@
---- 
-abstract: Make the current Catalyst
-author: 
-  - Jonathan Rockway, C<< <jrockway at cpan.org> >>
-build_requires: 
+---
+abstract: 'Make the current Catalyst'
+author:
+  - 'Jonathan Rockway, C<< <jrockway at cpan.org> >>'
+build_requires:
   Devel::Cycle: 0
+configure_requires:
+  ExtUtils::MakeMaker: 6.50
 distribution_type: module
-generated_by: Module::Install version 0.68
+generated_by: 'Module::Install version 0.81'
 license: perl
-meta-spec: 
-  url: http://module-build.sourceforge.net/META-spec-v1.3.html
-  version: 1.3
+meta-spec:
+  url: http://module-build.sourceforge.net/META-spec-v1.4.html
+  version: 1.4
 name: Catalyst-Component-ACCEPT_CONTEXT
-no_index: 
-  directory: 
+no_index:
+  directory:
     - inc
     - t
-requires: 
+requires:
   Catalyst: 0
+  MRO::Compat: 0
   Scalar::Util: 0
-version: 0.05
+resources:
+  license: http://dev.perl.org/licenses/
+version: 0.06
